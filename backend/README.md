@@ -1,6 +1,6 @@
 # Trivia API
 
-![](C:\Users\Aboubakar Abba\Documents\Hyeldas\UDACITY\trivia_app\backend\Screenshot 2022-06-11 181812.png)
+![](https://github.com/hyelnatzz/trivia-app/blob/main/backend/logo.png)
 
 Trivia as the name implies is a knowledge testing API design to be simple to deploy and easy to use. Questions and their categories can be added with ease. There is also a quiz feature. The API is professionally built with the required features that are found in similar styled apps. It is a fully featured completely RESTful API.
 
