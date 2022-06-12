@@ -293,14 +293,14 @@ curl -X GET localhost:5000/api/categories/5/questions
       "category": 5,
       "difficulty": 4,
       "id": 2,
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 			1996?"
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
     },
     {
       "answer": "Tom Cruise",
       "category": 5,
       "difficulty": 4,
       "id": 4,
-      "question": "What actor did author Anne Rice first denounce, then praise in the 			role of her beloved Lestat?"
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
     }
   ],
   "success": true,
@@ -371,9 +371,7 @@ curl -X GET localhost:5000/api/categories/5/questions
 
 
 ## Testing
-
-Write at least one test for the success and at least one error behavior of each endpoint using the unittest library.
-
+The API comes packaged with test for all endpoints.
 To deploy the tests, run
 
 ```bash
