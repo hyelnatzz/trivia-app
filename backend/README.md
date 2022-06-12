@@ -2,7 +2,7 @@
 
 ![](C:\Users\Aboubakar Abba\Documents\Hyeldas\UDACITY\trivia_app\backend\Screenshot 2022-06-11 181812.png)
 
-Trivia as the name implies is a knowledge testing API design to be simple to deploy and easy to use. Questions and their categories can be added with ease. There is also a quiz feature. The API is professionally built with the required features that are found in similar styled apps. It is a fully featured completely RESTful API
+Trivia as the name implies is a knowledge testing API design to be simple to deploy and easy to use. Questions and their categories can be added with ease. There is also a quiz feature. The API is professionally built with the required features that are found in similar styled apps. It is a fully featured completely RESTful API.
 
 ## Table of Contents
 
@@ -108,6 +108,35 @@ curl GET -X localhost:5000/api/categories
   "6": "Sports"
 }
 ```
+###### Create category
+
+------
+
+`POST '/api/categories'`
+
+- Used to create a new category and add it to the database.
+
+- Request Parameters: `type`
+
+  | Parameter | Type   |
+  | --------- | ------ |
+  | type      | String |
+  
+- Sample Request
+
+  ```bash
+  curl -i -X POST -H "Content-Type: application/json" \
+  -d "{\"type\":\"Football\"}" 
+  http://localhost:5000/api/questions
+  ```
+  
+- Response: An object with a single key, `categories`, that contains an object of `id: category_string` key: value pairs.
+
+    ```json
+    {
+        "success": True,
+    }
+    ```
 ###### Get questions
 
 ------
