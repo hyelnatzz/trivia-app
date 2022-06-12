@@ -16,6 +16,8 @@ class QuizView extends Component {
       currentQuestion: {},
       guess: '',
       forceEnd: false,
+      player_name: '',
+      final_score:0
     };
   }
 
@@ -47,7 +49,7 @@ class QuizView extends Component {
     if (this.state.currentQuestion.id) {
       previousQuestions.push(this.state.currentQuestion.id);
     }
-
+    console.log(this.state.final_score);
     $.ajax({
       url: '/api/quizzes', //TODO: update request URL
       type: 'POST',
@@ -56,6 +58,8 @@ class QuizView extends Component {
       data: JSON.stringify({
         previous_questions: previousQuestions,
         quiz_category: this.state.quizCategory,
+        player_name: this.state.player_name,
+        final_score: this.state.final_score
       }),
       xhrFields: {
         withCredentials: true,
@@ -83,6 +87,7 @@ class QuizView extends Component {
     let evaluate = this.evaluateAnswer();
     this.setState({
       numCorrect: !evaluate ? this.state.numCorrect : this.state.numCorrect + 1,
+      final_score: this.state.numCorrect,
       showAnswer: true,
     });
   };
@@ -102,6 +107,10 @@ class QuizView extends Component {
   renderPrePlay() {
     return (
       <div className='quiz-play-holder'>
+          <label>Player Name: <input type="text" onChange={(e) => {
+            this.setState({player_name: e.target.value})
+          }}/></label>
+          <hr/>
         <div className='choose-header'>Choose Category</div>
         <div className='category-holder'>
           <div className='play-category' onClick={this.selectCategory}>

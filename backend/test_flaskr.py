@@ -44,8 +44,24 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["success"], True)
         self.assertTrue(data["categories"])
 
+
+    def test_create_category(self):
+        new_category = {
+                    'type': 'Football',
+                }
+
+        res = self.client().post("/api/categories", json=new_category)
+        data = json.loads(res.data)
+
+        saved_category = Category.query.filter_by(type=new_category['type']).first()
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+        self.assertEqual(new_category['type'], saved_category.type)
+
+
     def test_405_for_categories(self):
-        res = self.client().post("/api/categories")
+        res = self.client().patch("/api/categories")
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 405)

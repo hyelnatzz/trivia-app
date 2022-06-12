@@ -25,6 +25,7 @@ def setup_db(app, database_path=database_path):
     migrate = Migrate(app, db)
 
 
+
 """
 Question
 
@@ -77,8 +78,48 @@ class Category(db.Model):
     def __init__(self, type):
         self.type = type
 
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def format(self):
         return {
             'id': self.id,
             'type': self.type
             }
+
+"""
+users
+"""
+class Player(db.Model):
+    __tablename__ = 'players'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    score = Column(Integer)
+
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def format(self):
+        return {
+            'id': self.id,
+            'type': self.type
+            }
+

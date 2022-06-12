@@ -1,11 +1,13 @@
 
+from hashlib import new
+import json
 import os
 from flask import Flask, request, abort, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
 
-from models import setup_db, Question, Category
+from models import setup_db, Question, Category, Player
 
 QUESTIONS_PER_PAGE = 10
 
@@ -33,8 +35,17 @@ def create_app(test_config=None):
     Create an endpoint to handle GET requests
     for all available categories.
     """
-    @app.route('/api/categories', methods=['GET'])
+    @app.route('/api/categories', methods=['GET', 'POST'])
     def all_categories():
+        if request.method == 'POST':
+            try:
+                new_category = Category(type=request.get_json()['type'])
+                new_category.insert()
+                return jsonify({
+                    'success': True,
+                })
+            except:
+                abort(422)
         try:
             categories = Category.query.all()
             formatted_categories = {category.format()['id']:category.format()['type'] for category in categories}
@@ -211,10 +222,14 @@ def create_app(test_config=None):
         question = {}
         quiz_category = 0
         previous_questions_id = ''
+        player_name = ''
+        final_score = 0
 
         try:
             quiz_category = request.get_json().get('quiz_category', 0).get('id', 0)
             previous_questions_id = request.get_json().get('previous_questions', [])
+            player_name = request.get_json().get('player_name', None)
+            final_score = request.get_json().get('final_score', None)
         except:
             abort(400)
 
@@ -254,10 +269,14 @@ def create_app(test_config=None):
             }), 200
         else:
             #for end of quiz
+            if player_name is not None and final_score is not None:
+                player = Player(name=player_name, score=final_score)
+                player.insert()
             return jsonify({
                 'success': True,
             }), 200
             
+
 
     """
     @TODO:
